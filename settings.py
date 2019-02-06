@@ -168,3 +168,5 @@ for brand in BRANDING.values():
     context = dict(STATIC_URL=STATIC_URL, base_template='frame.html', debug=False, testing=False)
     context['brand'] = dict(slug=brand['slug'], styles=brand['styles'])
     COMPRESS_OFFLINE_CONTEXT.append(context)
+
+ELASTICSEARCH_URL = env('ELASTICSEARCH_URL', 'http://localhost:9200')
