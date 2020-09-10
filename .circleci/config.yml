@@ -38,7 +38,12 @@ jobs:
               docker tag istresearch/p4-engage:${VERSION_TAG} istresearch/p4-engage:ci-develop
               docker push istresearch/p4-engage:ci-develop
             fi
-
+            
+            # scan image
+            if [[ ! -z $CIRCLE_TAG ]]; then
+              curl -XPOST -H "Circle-Token: $CIRCLE_TOKEN" -H "Content-Type: application/json" -d '{"'"build_parameters"'":{"'"SCAN_IMAGE"'":"'"synergy"'","'"SCAN_TAG"'":"'"$VERSION_TAG"'"}}' https://circleci.com/api/v1.1/project/github/istresearch/cs-scanner/tree/master
+            fi
+            
             # Build the container with generic branding
             docker build --build-arg VERSION_TAG=$VERSION_TAG -t istresearch/rapidpro:${VERSION_TAG}-generic -f Dockerfile-generic .
             docker push istresearch/rapidpro:${VERSION_TAG}-generic
