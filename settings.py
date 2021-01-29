@@ -22,9 +22,6 @@ MAX_TPS = env('MAX_TPS', 50)            # Max configurable Transactions Per Seco
 
 MAX_ORG_LABELS = int(env('MAX_ORG_LABELS', 500))
 
-#Use CHAT_MODE_CHOICES to configure the chatmodes that are available to the Postmaster channel
-CHAT_MODE_CHOICES = (("WA", _("WhatsApp")), ("TG", _("Telegram")),  ("LN", _("LINE")), ("SIG", _("SIGNAL")),
-                     ("SMS", _("TEL")), ("VK", _("VK")), ("VB", _("VIBER")), ("TWTR", _("TWITTER")))
 POST_OFFICE_QR_URL = env('POST_OFFICE_QR_URL', 'https://localhost:8088/postoffice/engage/claim')
 POST_OFFICE_API_KEY = env('POST_OFFICE_API_KEY', 'abc123')
 
@@ -211,6 +208,7 @@ CHANNEL_TYPES = [
     "temba.channels.types.whatsapp.WhatsAppType",
     "temba.channels.types.twilio.TwilioType",
     "temba.channels.types.twilio_messaging_service.TwilioMessagingServiceType",
+    "temba.channels.types.twilio_whatsapp.TwilioWhatsappType",
     "temba.channels.types.nexmo.NexmoType",
     "temba.channels.types.africastalking.AfricasTalkingType",
     "temba.channels.types.blackmyna.BlackmynaType",
@@ -295,3 +293,8 @@ LOGGING = {
 ORG_SEARCH_CONTEXT = []
 
 MSG_FIELD_SIZE = env('MSG_FIELD_SIZE', 4096)
+
+try:
+    from temba.local_settings import *  
+except ImportError:
+    pass
